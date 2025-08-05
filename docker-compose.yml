@@ -1,0 +1,29 @@
+services:
+  nginx:
+    image: nginx:alpine
+    container_name: nginx
+    volumes:
+      - ./nginx:/etc/nginx/conf.d
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+      - brm-network
+
+  certbot:
+    image: certbot/certbot
+    container_name: certbot
+    volumes:
+      - ./certbot/www:/var/www/certbot
+      - ./certbot/conf:/etc/letsencrypt
+    command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.com --expand  --non-interactive --agree-tos 
+    networks:
+      - brm-network
+    depends_on:
+      - nginx  
+
+networks:
+  brm-network:
+    external: true
