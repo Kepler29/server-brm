@@ -7,7 +7,7 @@ services:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
     ports:
-      - "8080:80"
+      - "80:80"
       - "443:443"
     networks:
       - brm-network
@@ -18,7 +18,7 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.net -d mail.protocolocomercial.net --expand  --non-interactive --agree-tos 
+    command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.net -d protocolocomercial.net --expand  --non-interactive --agree-tos 
     networks:
       - brm-network
     depends_on:
