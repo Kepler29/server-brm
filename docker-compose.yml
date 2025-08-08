@@ -6,7 +6,7 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    port:
+    ports:
       - "80:80"
       - "443:443"
     networks:
