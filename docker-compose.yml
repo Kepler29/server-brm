@@ -1,16 +1,16 @@
 services:
   nginx:
     image: nginx:alpine
-    container_name: brm-nginx
+    container_name: nginx
     volumes:
       - ./nginx:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    expose:
-      - "80"
-      - "443"
+    port:
+      - "80:80"
+      - "443:443"
     networks:
-      - mailcow-network
+      - brm-network 
 
   certbot:
     image: certbot/certbot
@@ -18,13 +18,13 @@ services:
     volumes:
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.net -d protocolocomercial.net --expand  --non-interactive --agree-tos 
+    command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.net --expand  --non-interactive --agree-tos 
     networks:
-      - mailcow-network
+      - brm-network
     depends_on:
       - nginx  
 
 networks:
-  mailcow-network:
+  brm-network:
     external: true
-    name: mailcowdockerized_mailcow-network
+    name: brm-network
