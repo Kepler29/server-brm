@@ -6,11 +6,11 @@ services:
       - ./nginx:/etc/nginx/conf.d
       - ./certbot/www:/var/www/certbot
       - ./certbot/conf:/etc/letsencrypt
-    ports:
-      - "8080:80"
-      - "8443:443"
+    expose:
+      - "80"
+      - "443"
     networks:
-      - brm-network
+      - mailcow-network
 
   certbot:
     image: certbot/certbot
@@ -20,10 +20,10 @@ services:
       - ./certbot/conf:/etc/letsencrypt
     command: certonly --webroot --webroot-path=/var/www/certbot --email reyes875453@gmail.com --agree-tos --no-eff-email -d protocolocomercial.net -d protocolocomercial.net --expand  --non-interactive --agree-tos 
     networks:
-      - brm-network
+      - mailcow-network
     depends_on:
       - nginx  
 
 networks:
-  brm-network:
+  mailcow-network:
     external: true
