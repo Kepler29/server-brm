@@ -27,3 +27,4 @@ services:
 networks:
   mailcow-network:
     external: true
+    name: mailcow-dockerized_mailcow-network
